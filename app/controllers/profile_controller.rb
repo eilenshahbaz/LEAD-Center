@@ -9,13 +9,15 @@ class ProfileController < ApplicationController
 
   def show
       id = params[:id]
-      @profile = User.find(id)
+      # @profile = User.find(id) || nil
+      @profile = nil
       @id = id
       session[:id] = id
   end
 
   def edit
-    @profile = User.find(session[:id])
+    # @profile = User.find(session[:id])
+    @profile = nil
     @id = session[:id]
   end
 

@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_04_28_013301) do
     t.datetime "updated_at", null: false
     t.string "last_name"
     t.string "first_name"
+    t.string "uid"
   end
 
 end
