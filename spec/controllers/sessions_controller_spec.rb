@@ -18,9 +18,9 @@ RSpec.describe SessionsController, type: :controller do
       expect(session[:user_id]).not_to be_nil
     end
 
-    it "redirects to the home page" do
+    it "redirects to the profile page" do
       post :create, params: { provider: :cas }
-      expect(response).to redirect_to root_url
+      expect(response).to redirect_to controller: 'profile', action: 'edit', id: 1
     end
   end
 
