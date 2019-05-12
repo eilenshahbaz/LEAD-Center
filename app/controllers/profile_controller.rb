@@ -1,21 +1,26 @@
 class ProfileController < ApplicationController
 
   skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
 
+  # might need to redirect to /auth/:provider/callback TODO
   def create
     User.create!(params[:user])
     redirect_to show_profile_path
   end
 
   def show
-      id = params[:id]
-      @profile = User.find(id)
-      @id = id
-      session[:id] = id
+    id = params[:id]
+    unless correct_user?
+      redirect_to root_url
+    end
+    @profile = User.find(id)
+    @id = id
+    session[:id] = id
   end
 
   def edit
-    @profile = User.find(session[:id])
+    @profile = User.find(params[:id])
     @id = session[:id]
   end
 
