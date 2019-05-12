@@ -11,8 +11,6 @@ Background: users have been added to database
     | Tony       | Li        | IEOR  | Male   | 2020      | East Asian | false    | false    | false         |
 
     And I am on the profile page
-    Then I should see "Profile"
-    Then I should see "First Name"
 
 Scenario: editing first name
     When I press "Edit Profile" link
