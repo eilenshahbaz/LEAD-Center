@@ -21,14 +21,17 @@ class ProfileController < ApplicationController
 
   def update
     @profile = User.find(params[:id])
-    @profile.update_attributes!(user_params)
-    @profile.update_attribute(:transfer, params[:transfer] ? true : false)
-    @profile.update_attribute(:graduate, params[:graduate] ? true : false)
-    @profile.update_attribute(:international, params[:international] ? true : false)
+    update_profile_attributes
     redirect_to show_profile_path
   end
   private
   def user_params
-      params.permit(:first_name, :last_name, :major, :gender, :grad_year, :ethnicity, :transfer, :graduate, :international)
-    end
+    params.permit(:first_name, :last_name, :major, :gender, :grad_year, :ethnicity, :transfer, :graduate, :international)
+  end
+  def update_profile_attributes
+    @profile.update_attributes!(user_params)
+    @profile.update_attribute(:transfer, params[:transfer] ? true : false)
+    @profile.update_attribute(:graduate, params[:graduate] ? true : false)
+    @profile.update_attribute(:international, params[:international] ? true : false)
+  end
 end
