@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def correct_user?
+    current_user ||= User.find(session[:user_id]) if session[:user_id]
     @user = User.find(params[:id])
     return current_user == @user
   end
