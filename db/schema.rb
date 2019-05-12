@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_225231) do
+
+ActiveRecord::Schema.define(version: 2019_04_28_013301) do
 
   create_table "questions", force: :cascade do |t|
     t.text "options"
@@ -45,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_05_07_225231) do
     t.integer "grad_year"
     t.string "major"
     t.string "gender"
-    t.text "ethnicity"
+    t.string "ethnicity"
     t.boolean "transfer"
     t.boolean "graduate"
     t.boolean "international"
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_05_07_225231) do
     t.datetime "updated_at", null: false
     t.string "last_name"
     t.string "first_name"
+    t.string "uid"
   end
 
 end

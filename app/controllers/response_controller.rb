@@ -14,23 +14,11 @@ class ResponseController < ApplicationController
     content = question.options[params[:selected_options]]
     queue_content = question.question_queue_content(params[:selected_options])
     # Create response from question
-    responses_params = {
-      :question_id => question.id,
-      :content => queue_content[:content],
-      :quiz_id => @quiz.id,
-      :is_category => queue_content[:question_type] == 'categories'
-    }
+    responses_params = { :question_id => question.id, :content => queue_content[:content], :quiz_id => @quiz.id, :is_category => queue_content[:question_type] == 'categories' }
     @response = Response.new(responses_params)
     respond_to do |format|
       if @response.save
-        # If response successfully saves, then update the quiz and get next question.
-        next_question = @quiz.update_quiz_state(queue_content[:question_queue])
-        if next_question.nil?
-          @question = nil
-          cookies[:finished_quiz] = true
-        else
-          @question = Question.find(next_question)
-        end
+        handle_response_save(queue_content)
         format.js
       else
         # If response fails to save, then show the same question to retry.
@@ -40,5 +28,15 @@ class ResponseController < ApplicationController
     end
   end
 
+  def handle_response_save(queue_content)
+    # If response successfully saves, then update the quiz and get next question.
+    next_question = @quiz.update_quiz_state(queue_content[:question_queue])
+    if next_question.nil?
+      @question = nil
+      cookies[:finished_quiz] = true
+    else
+      @question = Question.find(next_question)
+    end
+  end
   # TODO: add strong parameters to response create
 end

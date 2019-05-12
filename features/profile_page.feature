@@ -10,17 +10,19 @@ Feature: profile page and edit page
       | Tony       | Li        | IEOR  | Male   | 2020      | East Asian | false    | false    | false         |
     And I am on the profile page
 
+
   Scenario: editing first name
     When I press "Edit Profile" link
     And I fill in "first_name" with "Dean"
-    And I press "Save Profile"
-    Then I should see "Dean"
+    And I press "Submit"
+    Then I should see "Dean" after "First name"
+    And I should see "Dean" before "Last name"
     And I should not see "Tony"
 
   Scenario: editing grad_year
     When I press "Edit Profile" link
     And I select "2021" from "grad_year"
-    And I press "Save Profile"
+    And I press "Submit"
     Then I should see "2021" after "Graduation Year"
     And I should not see "2020"
 
@@ -82,3 +84,4 @@ Feature: profile page and edit page
     And I press "Save Profile"
     Then I should see "Queer"
     And I should not see "queer"
+  
